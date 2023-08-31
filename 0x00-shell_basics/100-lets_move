@@ -1,2 +1,2 @@
 #!/bin/bash
-mv [[:upper:]]*.txt /tmp/u
+mv [[:upper:]]* /tmp/u
