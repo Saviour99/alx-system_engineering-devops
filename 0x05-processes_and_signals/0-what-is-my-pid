@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "$$"
+echo "$(ps -o pid= -p $$ | tr -d '[:space:]')"
