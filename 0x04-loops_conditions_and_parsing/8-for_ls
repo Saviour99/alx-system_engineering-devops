@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#This script displays the content of the directory in a list format
+
+for file in *
+do
+	if [[ "$file" == *-* ]]
+	then
+		echo "$file" | cut -d "-" -f2-
+	fi
+done
