@@ -1,20 +1,19 @@
 #!/usr/bin/env bash
 # This script gives you information about the school file
 
-file="school"
-if [ -e "$file" ]
+if [ -e "school" ]
 then
-	echo "$file file exits"
-	if [ -s "$file" ]
+	echo "school file exits"
+	if [ -s "school" ]
 	then
-		echo "$file file is not empty"
+		echo "school file is not empty"
 	else
-		echo "$file file is empty"
+		echo "school file is empty"
 	fi
-	if [ -f "$file" ]
+	if [ -f "school" ]
 	then
-		echo "$file is a regular file"
+		echo "school is a regular file"
 	fi
 else
-	echo "$file file does not exit"
+	echo "school file does not exit"
 fi
