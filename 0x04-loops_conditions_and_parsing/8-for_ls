@@ -5,6 +5,7 @@ for file in *
 do
 	if [ ! -d "$file" ] && [[ "$file" == *-* ]]
 	then
-		echo "$file" | cut -d "-" -f2-
+		display_name=$(echo "$file" | cut -d'-' -f2-)
+		echo "$display_name"
 	fi
 done
