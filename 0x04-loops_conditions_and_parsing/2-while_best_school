@@ -3,7 +3,7 @@
 
 count=0
 
-while (( $count  <= 9 ))
+while (( count  <= 9 ))
 do
 	echo "Best School"
 	(( count++ ))
