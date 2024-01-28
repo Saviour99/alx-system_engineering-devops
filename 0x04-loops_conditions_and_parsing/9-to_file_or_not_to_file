@@ -4,7 +4,7 @@
 file="school"
 if [ -e "$file" ]
 then
-	echo "$file file exit"
+	echo "$file file exits"
 	if [ -s "$file" ]
 	then
 		echo "$file file is not empty"
