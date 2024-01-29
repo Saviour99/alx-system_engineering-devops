@@ -1,2 +1,3 @@
-#!/bin/bash
-echo "$(ps -o pid= -p $$ | tr -d '[:space:]')"
+#!/usr/bin/env bash
+# displays its own PID.
+echo $$
