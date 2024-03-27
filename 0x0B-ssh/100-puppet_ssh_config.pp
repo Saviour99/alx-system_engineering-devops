@@ -4,7 +4,7 @@
 file { 'etc/ssh/ssh_config':
 	ensure => present,
 
-contents => "
+content =>"
 	
 	#ssh puppets configuration
 	
