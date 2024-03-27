@@ -8,10 +8,3 @@ then
 fi
 
 scp -o StrictHostKeyChecking=no -i "$4" "$1" "$3@$2"
-
-if [ $? -eq 0 ]
-then
-    echo "File transfer was successful"
-else
-    echo "File transfer failed"
-fi
