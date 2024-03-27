@@ -8,7 +8,7 @@ content =>"
 	
 	#ssh puppets configuration
 	
-	Host*
+	host*
 	IdentityFile ~/.ssh/school
 	PasswordAuthentication no
 	",
