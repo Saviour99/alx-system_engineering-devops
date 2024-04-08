@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 #Bash script that configure Nginx to run and listen on port 80 of all the servers
-#Creating symbolic link
+rm /etc/nginx/sites-enabled/default
 ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-#Restart Nginx
 service nginx restart
-#Terminate the previous nginx process ID
-kill "$(pgrep 'nginx' | head -1)"
