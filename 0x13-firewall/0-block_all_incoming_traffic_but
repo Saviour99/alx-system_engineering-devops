@@ -1,0 +1,12 @@
+#update the server and install uncomplicated firewall
+sudo apt-get update
+sudo apt-get install ufw
+
+#Block all incoming traffic and allow all outgoing traffic
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+#Allow ssh, http and https traffic anyone
+sudo ufw allow 22
+sudo ufw allow 443
+sudo ufw allow 80
