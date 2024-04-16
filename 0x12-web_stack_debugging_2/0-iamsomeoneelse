@@ -8,5 +8,8 @@ then
 	exit 1
 fi
 
+#Create a newuser
+sudo useradd -m -s /bin/bash -g users "$1"
+
 # Runs the 'whoami' command under the user passed as an argument
 su "$1" -c "whoami"
