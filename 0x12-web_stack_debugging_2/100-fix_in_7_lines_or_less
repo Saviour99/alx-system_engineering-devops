@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#Bash script that accepts one argument
+
+#Checks if an argument exist when the code is run
+if [ -z "$1" ];
+then
+	echo "Please provide a user as an argument."
+	exit 1
+fi
+
+#Create a newuser
+sudo useradd -m -s /bin/bash -g users "$1"
+
+# Runs the 'whoami' command under the user passed as an argument
+su "$1" -c "whoami"
