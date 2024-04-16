@@ -8,4 +8,5 @@ then
 	exit 1
 fi
 
+# Runs the 'whoami' command under the user passed as an argument
 su "$1" -c "whoami"
