@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#Fix this container so that Nginx is running as the nginx user.
+
+#Checks if Nginx is running as root
+if [ "$(whoami)" == "root" ];
+then
+	#Change the user from root to Nginx
+	sed -i "s/user nginx;/user nginx nginx;/" /etc/nginx/nginx.conf
+
+	# Change the root process to run as "nginx" user
+	sed -i "s/daemon off;/user nginx;\ndaemon off;/" /etc/nginx/nginx.conf
+
+	# MAKE NGINX LISTEN ON PORT 8080
+	sed -i "s/listen 80;/listen 8080;/" /etc/nginx/sites-available/default
+fi
+nginx -g 'daemon off;'
