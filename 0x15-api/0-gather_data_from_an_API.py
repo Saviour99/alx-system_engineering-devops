@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     try:
         response = requests.get(users_url).json()
-        emp_name = response.get("name")[:18].ljust(18)
+        emp_name = f"{response.get('name')[:18]:<18}"
 
         todos = requests.get(todos_url).json()
         count = 0
