@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     try:
         response = requests.get(users_url).json()
-        emp_name = f"{response.get('name')[:18]:<18}"
+        emp_name = response.get('name')
 
         todos = requests.get(todos_url).json()
         count = 0
@@ -28,8 +28,8 @@ if __name__ == "__main__":
 
         total_todos = len(todos)
 
-        print("Employee {emp_name} is done with tasks"
-              + "({count}/{total_todos}): ")
+        print("Employee {emp_name[:18]:<18} is done with tasks"
+              + "({count}/{total_todos:02d}): ")
         for todo in todos:
             if todo.get("completed"):
                 print(f"\t {todo.get('title')}")
