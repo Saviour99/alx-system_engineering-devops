@@ -9,7 +9,7 @@ if __name__ == "__main__":
         print("Usage: python script.py <user_id>")
         sys.exit(1)
 
-    user_id = sys.argv[1]
+    user_id = int(sys.argv[1])
 
     base_url = "https://jsonplaceholder.typicode.com"
     users_url = f"{base_url}/users/{user_id}"
