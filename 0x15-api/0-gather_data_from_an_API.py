@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """Python script that returns information using a REST API"""
 
 import requests
@@ -9,7 +9,7 @@ if __name__ == "__main__":
 
     base_url = "https://jsonplaceholder.typicode.com"
     users_url = f"{base_url}/users/{user_id}"
-    todos_url = f"{base_url}/users/{user_id}/todos"
+    todos_url = f"{users_url}/todos"
 
     response = requests.get(users_url).json()
     emp_name = response.get("name")
