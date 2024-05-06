@@ -28,8 +28,10 @@ if __name__ == "__main__":
 
         total_todos = len(todos)
 
-        print("Employee {emp_name[:18]:<18} is done with tasks"
-              + "({count}/{total_todos:02d}): ")
+        emp_name_adjusted = f"{emp_name[:18]:<18}"
+
+        print("Employee {emp_name_adjusted} is done with tasks"
+              + "({count:02d}/{total_todos}): ")
         for todo in todos:
             if todo.get("completed"):
                 print(f"\t {todo.get('title')}")
