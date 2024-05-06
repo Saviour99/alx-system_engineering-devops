@@ -26,9 +26,11 @@ if __name__ == "__main__":
 
         with open(csv_filename, mode='w', newline='') as file:
             writer = csv.writer(file)
-            writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
+            writer.writerow(["USER_ID", "USERNAME",
+                             "TASK_COMPLETED_STATUS", "TASK_TITLE"])
             for todo in todos:
-                writer.writerow([user_id, emp_name, todo["completed"], todo["title"]])
+                writer.writerow([user_id, emp_name, todo["completed"],
+                                 todo["title"]])
 
     except requests.exceptions.RequestException as e:
         print("Error fetching data: ", e)
