@@ -29,8 +29,12 @@ if __name__ == "__main__":
             writer.writerow(["USER_ID", "USERNAME",
                              "TASK_COMPLETED_STATUS", "TASK_TITLE"])
             for todo in todos:
-                writer.writerow([user_id, emp_name, todo["completed"],
-                                 todo["title"]])
+                emp = str(emp_name)
+                user = str(user_id)
+                completed_status = str(todo['completed'])
+                task_title = str(todo['title'])
+
+                writer.writerow([f'{user}","{emp}","{completed_status}","{task_title}'])
 
     except requests.exceptions.RequestException as e:
         print("Error fetching data: ", e)
