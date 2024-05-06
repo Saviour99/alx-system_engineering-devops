@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """Python script that returns information using a REST API"""
 
-import requests
 import json
+import requests
 import sys
 
 if __name__ == "__main__":
