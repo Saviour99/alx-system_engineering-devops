@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#Configuring Nginx to listen on port 80 of all the servers
+#Configuring Nginx to be sweet and short
 cat /etc/nginx/sites-available/default > /etc/nginx/sites-enabled/default
 service nginx restart
 rm /run/nginx.pid
