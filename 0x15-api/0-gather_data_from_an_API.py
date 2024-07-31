@@ -1,41 +1,28 @@
 #!/usr/bin/python3
 """Python script that returns information using a REST API"""
 
+import re
 import requests
 import sys
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python script.py <user_id>")
-        sys.exit(1)
+url = "https://jsonplaceholder.typicode.com"
 
-    user_id = int(sys.argv[1])
-
-    base_url = "https://jsonplaceholder.typicode.com"
-    users_url = f"{base_url}/users/{user_id}"
-    todos_url = f"{users_url}/todos"
-
-    try:
-        response = requests.get(users_url).json()
-        emp_name = response.get('name')
-
-        todos = requests.get(todos_url).json()
-        count = 0
-
-        for todo in todos:
-            if todo.get("completed"):
-                count += 1
-
-        total_todos = len(todos)
-
-        emp_name_adjusted = f"{emp_name[:18]:<18}"
-
-        print("Employee {emp_name_adjusted} is done with tasks"
-              + "({count:02d}/{total_todos}): ")
-        for todo in todos:
-            if todo.get("completed"):
-                print(f"\t {todo.get('title')}")
-
-    except requests.exceptions.RequestException as e:
-        print("Error fetching data: ", e)
-        sys.exit(1)
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        if re.fullmatch(r'\d+', sys.argv[1]):
+            id = int(sys.argv[1])
+            req = requests.get('{}/users/{}'.format(url, id)).json()
+            task_req = requests.get('{}/todos'.format(url)).json()
+            emp_name = req.get('name')
+            tasks = list(filter(lambda x: x.get('userId') == id, task_req))
+            completed_tasks = list(filter(lambda x: x.get('completed'), tasks))
+            print(
+                'Employee {} is done with tasks({}/{}):'.format(
+                    emp_name,
+                    len(completed_tasks),
+                    len(tasks)
+                )
+            )
+            if len(completed_tasks) > 0:
+                for task in completed_tasks:
+                    print('\t {}'.format(task.get('title')))
