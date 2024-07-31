@@ -6,37 +6,25 @@ import json
 import requests
 import sys
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python script.py <user_id>")
-        sys.exit(1)
+if __name__ == '__main__':
+    USER_ID = sys.argv[1]
+    url_to_user = 'https://jsonplaceholder.typicode.com/users/' + USER_ID
+    res = requests.get(url_to_user)
+    """Documentation"""
+    USERNAME = res.json().get('username')
+    """Documentation"""
+    url_to_task = url_to_user + '/todos'
+    res = requests.get(url_to_task)
+    tasks = res.json()
 
-    user_id = int(sys.argv[1])
-    base_url = "https://jsonplaceholder.typicode.com"
-    users_url = f"{base_url}/users/{user_id}"
-    todos_url = f"{users_url}/todos"
-
-    try:
-        response = requests.get(users_url).json()
-        emp_name = response.get('name')
-        todos = requests.get(todos_url).json()
-
-        data = {user_id: []}
-        for todo in todos:
-            task_title = todo.get("title")
-            completed_status = todo.get("completed")
-
-            task_data = {
-                "task": task_title,
-                "completed": completed_status,
-                "username": emp_name
-            }
-            data[user_id].append(task_data)
-
-        file_name = f"{user_id}.json"
-        with open(file_name, "w") as file:
-            json.dump(data, file)
-
-    except requests.exceptions.RequestException as e:
-        print("Error fetching data: ", e)
-        sys.exit(1)
+    dict_data = {USER_ID: []}
+    for task in tasks:
+        TASK_COMPLETED_STATUS = task.get('completed')
+        TASK_TITLE = task.get('title')
+        dict_data[USER_ID].append({
+                                  "task": TASK_TITLE,
+                                  "completed": TASK_COMPLETED_STATUS,
+                                  "username": USERNAME})
+    """print(dict_data)"""
+    with open('{}.json'.format(USER_ID), 'w') as f:
+        json.dump(dict_data, f)
