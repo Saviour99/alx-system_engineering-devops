@@ -1,41 +1,47 @@
 #!/usr/bin/python3
-"""
-A recursive function that queries the Reddit API,
-parses the title of all hot articles,
-and prints a sorted count of given keywords
-"""
 
-import re
 import requests
-from collections import Counter
 
 
-def count_words(subreddit, word_list, hot_list=None, after=None):
-    if hot_list is None:
-        hot_list = []
+def count_words(subreddit, word_list, after='', word_count={}):
+    """
+    Recursive function that queries the Reddit API,
+    parses the titles of all hot articles,
+    and prints a sorted count of given keywords (case-insensitive).
+    """
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    headers = {'User-Agent': 'custom-user-agent'}
+    params = {'after': after, 'limit': 100}
 
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json?after={after}"
-    response = requests.get(url, allow_redirects=False)
+    try:
+        response = requests.get(url, headers=headers,
+                                params=params, allow_redirects=False)
+        if response.status_code != 200:
+            return
 
-    if response.status_code == 200:
         data = response.json()
-        posts = data['data']['children']
+
+        # Normalize word_list to lowercase
+        word_list = [word.lower() for word in word_list]
+
+        # Process titles in the current page of results
+        for post in data['data']['children']:
+            title = post['data']['title'].lower().split()
+            for word in title:
+                if word in word_list:
+                    word_count[word] = word_count.get(word, 0) + 1
+
+        # Check if there are more pages to process (pagination)
         after = data['data']['after']
-
-        for post in posts:
-            title = post['data']['title'].lower()
-            hot_list.extend(re.findall(r'\w+', title))
-
         if after is not None:
-            hot_list = count_words(subreddit, word_list, hot_list, after)
+            count_words(subreddit, word_list, after, word_count)
+        else:
+            # Sort and print results when recursion ends
+            if word_count:
+                sorted_word_count = sorted(word_count.items(),
+                                           key=lambda kv: (-kv[1], kv[0]))
+                for word, count in sorted_word_count:
+                    print(f"{word}: {count}")
 
-        word_counts = Counter(hot_list)
-        sorted_counts = sorted([(word, word_counts[word])
-                               for word in word_list if word_counts[word] > 0],
-                               key=lambda x: (-x[1], x[0].lower()))
-
-        for word, count in sorted_counts:
-            print(f"{word}: {count}")
-
-    else:
+    except requests.RequestException:
         return
