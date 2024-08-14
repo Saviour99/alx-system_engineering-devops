@@ -10,7 +10,9 @@ def number_of_subscribers(subreddit):
     headers = {'User-Agent': 'custom-user-agent'}
 
     try:
-        resp = requests.get(urlEndPoint, headers=headers, allow_redirects=False)
+        resp = requests.get(urlEndPoint,
+                            headers=headers,
+                            allow_redirects=False)
 
         if resp.status_code != 200:
             return 0
