@@ -9,9 +9,9 @@ import requests
 
 def top_ten(subreddit):
     """A function to get the first ten subscribers"""
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
+    urlEndPoint = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
 
-    resp = requests.get(url, allow_redirects=False)
+    resp = requests.get(urlEndPoint, allow_redirects=False)
 
     if resp.status_code == 200:
         data = resp.json()
